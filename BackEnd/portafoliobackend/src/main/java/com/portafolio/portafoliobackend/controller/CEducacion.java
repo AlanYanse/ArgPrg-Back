@@ -23,7 +23,8 @@ import com.portafolio.portafoliobackend.service.SEducacion;
 
 @RestController
 @RequestMapping("/educacion")
-@CrossOrigin(origins = "https://frontendportafolio.web.app")
+//Deploy https://frontendportafolio.web.app
+@CrossOrigin(origins = "http://localhost:4200")
 public class CEducacion {
     @Autowired
     SEducacion sEducacion;
