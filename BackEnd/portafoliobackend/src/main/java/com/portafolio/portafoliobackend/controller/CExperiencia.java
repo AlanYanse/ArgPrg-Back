@@ -24,7 +24,7 @@ import com.portafolio.portafoliobackend.service.SExperiencia;
 @RestController
 @RequestMapping("/explab")
 //Deploy https://frontendportafolio.web.app
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CExperiencia {
 
 	@Autowired

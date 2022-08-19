@@ -24,7 +24,7 @@ import com.portafolio.portafoliobackend.service.SEducacion;
 @RestController
 @RequestMapping("/educacion")
 //Deploy https://frontendportafolio.web.app
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CEducacion {
     @Autowired
     SEducacion sEducacion;

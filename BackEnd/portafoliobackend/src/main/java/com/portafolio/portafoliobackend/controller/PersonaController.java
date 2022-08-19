@@ -19,7 +19,7 @@ import com.portafolio.portafoliobackend.interfaz.IPersonaService;
 
 @RestController
 //Deploy https://frontendportafolio.web.app
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PersonaController {
     @Autowired IPersonaService ipersonaService;
     
