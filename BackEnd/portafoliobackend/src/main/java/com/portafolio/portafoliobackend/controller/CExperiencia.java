@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,8 @@ public class CExperiencia {
 		Experiencia experiencia = sExperiencia.getOne(id).get();
 		return new ResponseEntity(experiencia, HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") int id) {
 
@@ -60,7 +62,8 @@ public class CExperiencia {
 		sExperiencia.delete(id);
 		return new ResponseEntity(new Mensaje("Elemento Eliminado"), HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> create(@RequestBody DtoExperiencia dtoExp) {
 
@@ -81,6 +84,7 @@ public class CExperiencia {
 
 	}
 	
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoExperiencia dtoExp){
 		
