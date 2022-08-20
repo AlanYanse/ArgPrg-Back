@@ -25,7 +25,7 @@ import com.portafolio.portafoliobackend.security.controller.Mensaje;
 import com.portafolio.portafoliobackend.service.SSKill;
 
 @RestController
-@RequestMapping("/skill")
+@RequestMapping("/skills")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CSkill {
 
@@ -78,7 +78,7 @@ public class CSkill {
 			return new ResponseEntity(new Mensaje("Esa habilidad ya existe"), HttpStatus.BAD_REQUEST);
 		}
 
-		Skill skill = new Skill(dtoSkill.getNombreSkill(), dtoSkill.getPercent());
+		Skill skill = new Skill(dtoSkill.getNombreSkill(), dtoSkill.getDescripcionSkill(), dtoSkill.getImg(),  dtoSkill.getPercent());
 		sSkill.save(skill);
 
 		return new ResponseEntity(new Mensaje("Nueva habilidad ha sido salvada"), HttpStatus.OK);
@@ -111,9 +111,13 @@ public class CSkill {
 
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		}
+		
+		// Llegó hasta acá
 
 		Skill skill = sSkill.getOne(id).get();
 		skill.setNombreSkill(dtoSkill.getNombreSkill());
+		skill.setDescripcionSkill(dtoSkill.getDescripcionSkill());
+		skill.setImg(dtoSkill.getImg());
 		skill.setPercent(dtoSkill.getPercent());
 
 		sSkill.save(skill);
