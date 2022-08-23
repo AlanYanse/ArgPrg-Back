@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.portafolio.portafoliobackend.dto.DtoProyecto;
 import com.portafolio.portafoliobackend.entity.Proyecto;
 import com.portafolio.portafoliobackend.security.controller.Mensaje;
 import com.portafolio.portafoliobackend.service.ProyectoService;
 
 @RestController
-@RequestMapping("/skills")
+@RequestMapping("/proyectos")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CProyecto {
 	
@@ -82,10 +83,13 @@ public class CProyecto {
 
 		Proyecto proyecto = new Proyecto(dtoProyecto.getNombreProyecto(), dtoProyecto.getDescripcionProyecto(), dtoProyecto.getImagen());
 		proyectoService.save(proyecto);
+		
 
-		return new ResponseEntity(new Mensaje("Nueva habilidad ha sido salvada"), HttpStatus.OK);
+		return new ResponseEntity(new Mensaje("Nuevo Proyecto ha sido salvado"), HttpStatus.OK);
 
 	}
+	
+	
 	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
@@ -98,12 +102,12 @@ public class CProyecto {
 			return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
 		}
 
-		// Compara nombre de experiencias
+		// Compara nombre de proyectos
 
 		if (proyectoService.existsByNombreProyecto(dtoProyecto.getNombreProyecto())
 				&& proyectoService.getByNombreProyecto(dtoProyecto.getNombreProyecto()).get().getId() != id) {
 
-			return new ResponseEntity(new Mensaje("Esa habilidad ya existe"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Mensaje("Ese proyecto ya existe"), HttpStatus.BAD_REQUEST);
 
 		}
 
