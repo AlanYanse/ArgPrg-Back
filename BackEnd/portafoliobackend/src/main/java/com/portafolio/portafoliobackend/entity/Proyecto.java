@@ -15,6 +15,7 @@ public class Proyecto {
 	private String nombreProyecto;
 	private String descripcionProyecto;
 	private String imagen;
+	private String enlace;
 	
 	// Constructors
 	
@@ -22,11 +23,12 @@ public class Proyecto {
 		
 	}
 
-	public Proyecto(String nombreProyecto, String descripcionProyecto, String imagen) {
+	public Proyecto(String nombreProyecto, String descripcionProyecto, String imagen, String enlace) {
 		super();
 		this.nombreProyecto = nombreProyecto;
 		this.descripcionProyecto = descripcionProyecto;
 		this.imagen = imagen;
+		this.enlace = enlace;
 	}
 	
 	// Getters and Setters
@@ -61,6 +63,14 @@ public class Proyecto {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	
+	public String getEnlace() {
+		return this.enlace;
+	}
+	
+	public void setEnlace(String enlace) {
+		this.enlace = enlace;
 	}
 	
 	

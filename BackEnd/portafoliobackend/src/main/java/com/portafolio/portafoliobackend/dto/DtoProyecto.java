@@ -12,6 +12,9 @@ public class DtoProyecto {
 
 	@NotBlank
 	private String imagen;
+	
+	@NotBlank
+	private String enlace;
 
 	// Constructors
 
@@ -19,11 +22,12 @@ public class DtoProyecto {
 
 	}
 
-	public DtoProyecto(@NotBlank String nombreProyecto, @NotBlank String descripcionProyecto, @NotBlank String imagen) {
+	public DtoProyecto(@NotBlank String nombreProyecto, @NotBlank String descripcionProyecto, @NotBlank String imagen, @NotBlank String enlace) {
 		super();
 		this.nombreProyecto = nombreProyecto;
 		this.descripcionProyecto = descripcionProyecto;
 		this.imagen = imagen;
+		this.enlace = enlace;
 	}
 
 	// Getters and Setters
@@ -50,6 +54,14 @@ public class DtoProyecto {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	
+	public String getEnlace() {
+		return this.enlace;
+	}
+	
+	public void setEnlace(String enlace) {
+		this.enlace = enlace;
 	}
 
 }

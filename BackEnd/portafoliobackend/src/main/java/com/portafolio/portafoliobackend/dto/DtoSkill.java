@@ -14,6 +14,9 @@ public class DtoSkill {
 	private String img;
 	
 	@NotBlank
+	private String colorBarrita;
+	
+	@NotBlank
 	private int percent;
 	
 	// Constructors
@@ -22,11 +25,12 @@ public class DtoSkill {
 		
 	}
 
-	public DtoSkill(@NotBlank String nombreSkill, @NotBlank String descripcionSkill, @NotBlank String img,  @NotBlank int percent) {
+	public DtoSkill(@NotBlank String nombreSkill, @NotBlank String descripcionSkill, @NotBlank String img, @NotBlank String colorBarrita,  @NotBlank int percent) {
 		super();
 		this.nombreSkill = nombreSkill;
 		this.descripcionSkill = descripcionSkill;
 		this.img = img;
+		this.colorBarrita = colorBarrita;
 		this.percent = percent;
 	}
 	
@@ -54,6 +58,14 @@ public class DtoSkill {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+	
+	public String getColorBarrita() {
+		return this.colorBarrita;
+	}
+	
+	public void setColorBarrita(String colorBarrita) {
+		this.colorBarrita = colorBarrita;
 	}
 
 	public int getPercent() {
