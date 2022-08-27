@@ -78,7 +78,7 @@ public class CSkill {
 			return new ResponseEntity(new Mensaje("Esa habilidad ya existe"), HttpStatus.BAD_REQUEST);
 		}
 
-		Skill skill = new Skill(dtoSkill.getNombreSkill(), dtoSkill.getDescripcionSkill(), dtoSkill.getImg(),  dtoSkill.getPercent());
+		Skill skill = new Skill(dtoSkill.getNombreSkill(), dtoSkill.getDescripcionSkill(), dtoSkill.getImg(), dtoSkill.getColorBarrita(),  dtoSkill.getPercent());
 		sSkill.save(skill);
 
 		return new ResponseEntity(new Mensaje("Nueva habilidad ha sido salvada"), HttpStatus.OK);
@@ -118,6 +118,7 @@ public class CSkill {
 		skill.setNombreSkill(dtoSkill.getNombreSkill());
 		skill.setDescripcionSkill(dtoSkill.getDescripcionSkill());
 		skill.setImg(dtoSkill.getImg());
+		skill.setColorBarrita(dtoSkill.getColorBarrita());
 		skill.setPercent(dtoSkill.getPercent());
 
 		sSkill.save(skill);

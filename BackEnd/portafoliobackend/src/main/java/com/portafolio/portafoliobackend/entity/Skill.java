@@ -14,6 +14,7 @@ public class Skill {
 	private String nombreSkill;
 	private String descripcionSkill;
 	private String img;
+	private String colorBarrita;
 	private int percent;
 	
 	// Constructors
@@ -22,11 +23,12 @@ public class Skill {
 		
 	}
 
-	public Skill(String nombreSkill, String descripcionSkill, String img,  int percent) {
+	public Skill(String nombreSkill, String descripcionSkill, String img, String colorBarrita,  int percent) {
 		super();
 		this.nombreSkill = nombreSkill;
 		this.descripcionSkill = descripcionSkill;
 		this.img = img;
+		this.colorBarrita = colorBarrita;
 		this.percent = percent;
 	}
 	
@@ -62,6 +64,14 @@ public class Skill {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getColorBarrita() {
+		return this.colorBarrita;
+	}
+	
+	public void setColorBarrita( String colorBarrita) {
+		this.colorBarrita = colorBarrita;
 	}
 
 	public int getPercent() {
