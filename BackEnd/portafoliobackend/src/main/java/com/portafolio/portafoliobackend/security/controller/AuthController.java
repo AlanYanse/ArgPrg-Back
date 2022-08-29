@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,11 +17,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portafolio.portafoliobackend.entity.Persona;
 import com.portafolio.portafoliobackend.security.dto.JwtDto;
 import com.portafolio.portafoliobackend.security.dto.LoginUsuario;
 import com.portafolio.portafoliobackend.security.dto.NuevoUsuario;
@@ -46,7 +52,11 @@ public class AuthController {
 	RolService rolService;
 	@Autowired
 	JwtProvider jwtProvider;
-
+	
+	
+	// Creación de usuario
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/nuevo")
 	public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
@@ -71,6 +81,22 @@ public class AuthController {
 
 		return new ResponseEntity(new Mensaje("Usuario guardado"), HttpStatus.CREATED);
 	}
+	
+	
+	// Eliminación de usuario
+	
+	@PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/borrar/{id}")
+    public String deletePersona(@PathVariable int id){
+		usuarioService.deleteUser(id);
+        return "El usuario ha sido eliminado correctamente";
+    }
+    
+  
+
+	// Login
+	
+	
 
 	@PostMapping("/login")
 	public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
