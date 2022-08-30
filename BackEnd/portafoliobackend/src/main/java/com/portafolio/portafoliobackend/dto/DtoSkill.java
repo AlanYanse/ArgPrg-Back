@@ -1,29 +1,31 @@
-package com.portafolio.portafoliobackend.entity;
+package com.portafolio.portafoliobackend.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-public class Skill {
+public class DtoSkill {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@NotBlank
 	private String nombreSkill;
+	
+	@NotBlank
 	private String descripcionSkill;
+	
+	@NotBlank
 	private String img;
+	
+	@NotBlank
 	private String colorBarrita;
+	
+	@NotBlank
 	private int percent;
 	
 	// Constructors
 	
-	public Skill() {
+	public DtoSkill() {
 		
 	}
 
-	public Skill(String nombreSkill, String descripcionSkill, String img, String colorBarrita,  int percent) {
+	public DtoSkill(@NotBlank String nombreSkill, @NotBlank String descripcionSkill, @NotBlank String img, @NotBlank String colorBarrita,  @NotBlank int percent) {
 		super();
 		this.nombreSkill = nombreSkill;
 		this.descripcionSkill = descripcionSkill;
@@ -34,14 +36,10 @@ public class Skill {
 	
 	// Getters and Setters
 
-	public int getId() {
-		return id;
-	}
-	
 	public String getNombreSkill() {
 		return nombreSkill;
 	}
-	
+
 	public void setNombreSkill(String nombreSkill) {
 		this.nombreSkill = nombreSkill;
 	}
@@ -49,7 +47,7 @@ public class Skill {
 	public String getDescripcionSkill() {
 		return descripcionSkill;
 	}
-	
+
 	public void setDescripcionSkill(String descripcionSkill) {
 		this.descripcionSkill = descripcionSkill;
 	}
@@ -57,20 +55,16 @@ public class Skill {
 	public String getImg() {
 		return img;
 	}
-	
+
 	public void setImg(String img) {
 		this.img = img;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public String getColorBarrita() {
 		return this.colorBarrita;
 	}
 	
-	public void setColorBarrita( String colorBarrita) {
+	public void setColorBarrita(String colorBarrita) {
 		this.colorBarrita = colorBarrita;
 	}
 
@@ -81,8 +75,6 @@ public class Skill {
 	public void setPercent(int percent) {
 		this.percent = percent;
 	}
-	
-	
 	
 	
 	

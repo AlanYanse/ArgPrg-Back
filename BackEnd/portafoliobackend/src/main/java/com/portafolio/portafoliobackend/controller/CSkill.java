@@ -18,106 +18,112 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portafolio.portafoliobackend.dto.DtoExperiencia;
+import com.portafolio.portafoliobackend.dto.DtoSkill;
 import com.portafolio.portafoliobackend.entity.Experiencia;
+import com.portafolio.portafoliobackend.entity.Skill;
 import com.portafolio.portafoliobackend.security.controller.Mensaje;
-import com.portafolio.portafoliobackend.service.SExperiencia;
+import com.portafolio.portafoliobackend.service.SSKill;
 
 @RestController
-@RequestMapping("/explab")
-//Deploy https://frontendportafolio.web.app
+@RequestMapping("/skills")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CExperiencia {
+public class CSkill {
 
 	@Autowired
-	SExperiencia sExperiencia;
+	SSKill sSkill;
 
 	@GetMapping("/lista")
 	public ResponseEntity<List<Experiencia>> list() {
 
-		List<Experiencia> list = sExperiencia.list();
+		List<Skill> list = sSkill.list();
 
 		return new ResponseEntity(list, HttpStatus.OK);
 	}
-
+	
 	@GetMapping("/detail/{id}")
-	public ResponseEntity<Experiencia> getById(@PathVariable("id") int id) {
+	public ResponseEntity<Skill> getById(@PathVariable("id") int id) {
 
-		if (!sExperiencia.existsById(id)) {
+		if (!sSkill.existsById(id)) {
 			return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
 		}
 
-		Experiencia experiencia = sExperiencia.getOne(id).get();
-		return new ResponseEntity(experiencia, HttpStatus.OK);
+		Skill skill = sSkill.getOne(id).get();
+		return new ResponseEntity(skill, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") int id) {
 
-		if (!sExperiencia.existsById(id)) {
+		if (!sSkill.existsById(id)) {
 
 			return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
 		}
-
-		sExperiencia.delete(id);
+		
+		sSkill.delete(id);
 		return new ResponseEntity(new Mensaje("Elemento Eliminado"), HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PostMapping("/create")
-	public ResponseEntity<?> create(@RequestBody DtoExperiencia dtoExp) {
+	public ResponseEntity<?> create(@RequestBody DtoSkill dtoSkill) {
 
-		if (StringUtils.isBlank(dtoExp.getNombreE())) {
+		if (StringUtils.isBlank(dtoSkill.getNombreSkill())) {
 
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		}
 
-		if (sExperiencia.existsByNombreE(dtoExp.getNombreE())) {
+		if (sSkill.existsByNombreSkill(dtoSkill.getNombreSkill())) {
 
-			return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Mensaje("Esa habilidad ya existe"), HttpStatus.BAD_REQUEST);
 		}
 
-		Experiencia experiencia = new Experiencia(dtoExp.getNombreE(), dtoExp.getDescripcionE());
-		sExperiencia.save(experiencia);
+		Skill skill = new Skill(dtoSkill.getNombreSkill(), dtoSkill.getDescripcionSkill(), dtoSkill.getImg(), dtoSkill.getColorBarrita(),  dtoSkill.getPercent());
+		sSkill.save(skill);
 
-		return new ResponseEntity(new Mensaje("Nueva experiencia ha sido salvada"), HttpStatus.OK);
+		return new ResponseEntity(new Mensaje("Nueva habilidad ha sido salvada"), HttpStatus.OK);
 
 	}
 	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoExperiencia dtoExp){
-		
+	public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoSkill dtoSkill) {
+
 		// Validación existencia del id
-		
-		if(!sExperiencia.existsById(id)) {
-			
+
+		if (!sSkill.existsById(id)) {
+
 			return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
 		}
-		
+
 		// Compara nombre de experiencias
-		
-		if(sExperiencia.existsByNombreE(dtoExp.getNombreE()) && sExperiencia.getByNombreE(dtoExp.getNombreE()).get().getId() != id) {
-			
-			return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
-			
+
+		if (sSkill.existsByNombreSkill(dtoSkill.getNombreSkill())
+				&& sSkill.getByNombreSkill(dtoSkill.getNombreSkill()).get().getId() != id) {
+
+			return new ResponseEntity(new Mensaje("Esa habilidad ya existe"), HttpStatus.BAD_REQUEST);
+
 		}
-		
+
 		// No puede estar vacío
-		
-		if(StringUtils.isBlank(dtoExp.getNombreE())) {
-			
+
+		if (StringUtils.isBlank(dtoSkill.getNombreSkill())) {
+
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		}
 		
-		Experiencia experiencia = sExperiencia.getOne(id).get();
-		experiencia.setNombreE(dtoExp.getNombreE());
-		experiencia.setDescripcionE(dtoExp.getDescripcionE());
-		
-		sExperiencia.save(experiencia);
-		return new ResponseEntity(new Mensaje("Experiencia actualizada"), HttpStatus.OK);
-		
-		
+		// Llegó hasta acá
+
+		Skill skill = sSkill.getOne(id).get();
+		skill.setNombreSkill(dtoSkill.getNombreSkill());
+		skill.setDescripcionSkill(dtoSkill.getDescripcionSkill());
+		skill.setImg(dtoSkill.getImg());
+		skill.setColorBarrita(dtoSkill.getColorBarrita());
+		skill.setPercent(dtoSkill.getPercent());
+
+		sSkill.save(skill);
+		return new ResponseEntity(new Mensaje("Habilidad actualizada"), HttpStatus.OK);
+
 	}
 
 }
